@@ -1,0 +1,25 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Holiday {
+  id        String   @id @default(cuid())
+  country   String   // ISO code, e.g. "PH"
+  date      DateTime
+  name      String
+  localName String?
+  type      String?  // public, regional, special_non_working, etc.
+  year      Int
+  createdAt DateTime @default(now())
+
+  @@unique([country, date, name])
+}
