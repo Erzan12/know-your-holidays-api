@@ -22,4 +22,5 @@ model Holiday {
   createdAt DateTime @default(now())
 
   @@unique([country, date, name])
+  @@index([country, year])
 }
