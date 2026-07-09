@@ -9,9 +9,11 @@ async function bootstrap() {
   //   credentials: true,
   // });
 
-  await app.listen(3002, () => {
-    console.log('Server is running at http://localhost:3002');
-  })
+  // await app.listen(3002, () => {
+  //   console.log('Server is running at http://localhost:3002');
+  // })
+
+  await app.listen(3002, '0.0.0.0');
 
 }
 bootstrap();
