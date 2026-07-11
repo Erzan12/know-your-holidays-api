@@ -40,9 +40,26 @@ export class HolidaysService {
       skipDuplicates: true,
     });
 
-    return this.prisma.holiday.findMany({
+    // return this.prisma.holiday.findMany({
+    //   where: { country, year },
+    //   orderBy: { date: 'asc' },
+    // });
+
+    // Inside your getHolidays(country, year) method in holidays.service.ts:
+    const dbRecords = await this.prisma.holiday.findMany({
       where: { country, year },
       orderBy: { date: 'asc' },
+    });
+
+    // Get today's date formatted as YYYY-MM-DD in local time
+    const todayStr = new Date().toISOString().split('T')[0];
+
+    return dbRecords.map(record => {
+      const recordDateStr = new Date(record.date).toISOString().split('T')[0];
+      return {
+        ...record,
+        isToday: recordDateStr === todayStr, // Attaches the live flag dynamically
+      };
     });
   }
 
